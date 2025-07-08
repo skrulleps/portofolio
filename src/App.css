@@ -184,6 +184,15 @@ span.navbar-text {
 	height: 100%;
 	position: absolute;
 }
+
+/* Refactor: Add cursor pointer on hover for nav-pills nav-link */
+.nav-pills .nav-link:hover {
+  cursor: pointer;
+}
+
+#projects .tab-content:hover {
+  cursor: pointer;
+}
 nav.navbar .navbar-toggler:active,
 nav.navbar .navbar-toggler:focus {
 	outline: none;
