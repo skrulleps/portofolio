@@ -1,7 +1,10 @@
 import webImg1 from "../img/web-Elibrary.png";
 import webImg2 from "../img/web-laravelSipenbat.png";
+import webImg3 from "../img/LandingPageTenangin.png";
+import webImg4 from "../img/TenanginBackend.png";
 import mobImg1 from "../img/mobile-curiosity.jpg";
 import mobImg2 from "../img/mobile-resep.jpg";
+import mobImg3 from "../img/SplashScreen.jpg";
 import desktopImg1 from "../img/desktop-kkn.png";
 import other1 from "../img/other-ui1.png";
 import other2 from "../img/other-ui2.png";
@@ -23,6 +26,18 @@ export const projectsData = {
       imgUrl: webImg2,
       url: "https://github.com/skrulleps/laravel-project1"
     },
+    {
+      title: "Tenangin - Frontend",
+      description: "Aplikasi Web untuk Kesehatan Mental",
+      imgUrl: webImg3,
+      url: "https://github.com/Tenangin/frontend-tenangin2"
+    },
+    {
+      title: "Tenangin - Backend",
+      description: "Aplikasi Web Backend untuk Kesehatan Mental aplikasi Tenangin",
+      imgUrl: webImg4,
+      url: "https://github.com/Tenangin/backend-tenangin"
+    }
   ],
   mobile: [
     {
@@ -36,6 +51,12 @@ export const projectsData = {
       description: "Design & Development (Frontend & Backend), Freelance Project",
       imgUrl: mobImg2,
       url: "https://github.com/skrulleps/flutterProjekGame2D"
+    },
+    {
+      title: "PitStop App",
+      description: "Design & Development (Frontend & Backend), Campus Project",
+      imgUrl: mobImg3,
+      url: "https://github.com/skrulleps/projekUAS-PitStop"
     }
   ],
   desktop: [
