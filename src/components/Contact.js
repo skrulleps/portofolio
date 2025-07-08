@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import contactImg from "../assets/img/contact-img.svg";
 import 'animate.css';
@@ -14,8 +14,17 @@ export const Contact = () => {
     message: ''
   }
   const [formDetails, setFormDetails] = useState(formInitialDetails);
-  const [buttonText, setButtonText] = useState('Send');
+  const [buttonText] = useState('Send');
   const [status, setStatus] = useState({});
+
+  useEffect(() => {
+    if (status.message) {
+      const timer = setTimeout(() => {
+        setStatus({});
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [status]);
 
   const onFormUpdate = (category, value) => {
       setFormDetails({
@@ -24,24 +33,34 @@ export const Contact = () => {
       })
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setButtonText("Sending...");
-    let response = await fetch("http://localhost:5000/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(formDetails),
-    });
-    setButtonText("Send");
-    let result = await response.json();
-    setFormDetails(formInitialDetails);
-    if (result.code === 200) {
-      setStatus({ success: true, message: 'Message sent successfully'});
-    } else {
-      setStatus({ success: false, message: 'Something went wrong, please try again later.'});
+    const phoneNumber = "6285281891051"; // Your WhatsApp number
+    function getGreeting() {
+      const hour = new Date().getHours();
+      if (hour < 12) return "Pagi";
+      if (hour < 15) return "Siang";
+      if (hour < 18) return "Sore";
+      return "Malam";
     }
+
+    const greetingText = getGreeting();
+
+    const message = `Selamat ${greetingText}, saya ${formDetails.firstName} ${formDetails.lastName}.\nEmail: ${formDetails.email}.\nPesan: ${formDetails.message}.`;
+
+    // --- Tambahkan ini untuk debugging ---
+    console.log("Pesan Mentah (sebelum encode):", message);
+    // --- Akhir debugging ---
+
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    // --- Tambahkan ini untuk debugging ---
+    console.log("URL yang akan dibuka:", url);
+    // --- Akhir debugging ---
+
+    window.open(url, "_blank");
+    setFormDetails(formInitialDetails);
+    setStatus({ success: true, message: "Pesan berhasil dibuka di WhatsApp" });
   };
 
   return (
@@ -77,17 +96,27 @@ export const Contact = () => {
                     <Col size={12} className="px-1">
                       <textarea rows="6" value={formDetails.message} placeholder="Message" onChange={(e) => onFormUpdate('message', e.target.value)}></textarea>
                       <button type="submit"><span>{buttonText}</span></button><br></br>
-                      <a href={`https://wa.me/6285281891051${formDetails.phone}?text=${encodeURIComponent(`Nama: ${formDetails.firstName} ${formDetails.lastName}%0AEmail: ${formDetails.email}%0APesan: ${formDetails.message}`)}`} target="_blank" rel="noopener noreferrer">
-                        <button type="button"><span>Kirim via WhatsApp <FaWhatsapp size={25} color="green"/> </span></button>
-                      </a>
                     </Col>
-                    {
-                      status.message &&
-                      <Col>
-                        <p className={status.success === false ? "danger" : "success"}>{status.message}</p>
-                      </Col>
-                    }
                   </Row>
+                  {
+                    status.message &&
+                    <Row>
+                      <Col size={12} className="px-1">
+                        <div style={{
+                          marginTop: '10px',
+                          padding: '10px',
+                          borderRadius: '5px',
+                          color: status.success ? 'green' : 'red',
+                          backgroundColor: status.success ? '#d4edda' : '#f8d7da',
+                          border: status.success ? '1px solid #c3e6cb' : '1px solid #f5c6cb',
+                          fontWeight: 'bold',
+                          textAlign: 'center'
+                        }}>
+                          {status.message}
+                        </div>
+                      </Col>
+                    </Row>
+                  }
                 </form>
               </div>}
             </TrackVisibility>
