@@ -54,7 +54,7 @@ export const NavBar = () => {
                 <a href="https://www.linkedin.com/in/mochamedfadhlantuhairi/"><img src={navIcon1} alt="" /></a>
                 <a href="https://github.com/skrulleps"><img src={navIcon2} alt="" /></a>
                 <a href="https://www.instagram.com/fadhlant_07/"><img src={navIcon3} alt="" /></a>
-                <a href="https://drive.google.com/file/d/1L5YLsd5FMvGv8Sl1gzUPl18LeRv387j2/view?usp=sharing"><img src={navpdficon} alt="" /></a>
+                <a href="https://drive.google.com/file/d/1xfkZHqCXEJHpl8HfJaMd6Xw163JF4kq3/view?usp=sharing"><img src={navpdficon} alt="" /></a>
               </div>
               <HashLink to='#connect'>
                 <button className="vvd"><span>Lets Connect</span></button>
